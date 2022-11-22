@@ -54,17 +54,28 @@ vec4 applyTextureFunction() {
 //            false otherwise
 // ******************************
 bool InFshape( vec2 pos ) {
-	float sideMargin = 0.2;		// Left-to-right, F is in [sideMargin, 1-sideMargin]
-	float verticalMargin = 0.1;	// Bottom-to-top, F is in [vertMargin, 1-vertMargin]
-	float postWidth = 0.2;      // Width of the F's post
-	float armWidth = 0.2;       // Width of the F's arms
+	// Z shape
+	float sideMargin = 0.2;		// Left-to-right, Z is in [sideMargin, 1-sideMargin]
+	float verticalMargin = 0.1;	// Bottom-to-top, Z is in [vertMargin, 1-vertMargin]
+
+	float width = 0.1;
+
 	if ( pos.x<sideMargin || pos.x>1.0-sideMargin ||
 	         pos.y<verticalMargin || pos.y>1.0-verticalMargin ) {
 		 return false;
     }
-	if ( pos.x<=sideMargin+postWidth || pos.y >= 1.0-verticalMargin-armWidth ) {
-	    return true;
+
+	if ( (pos.y >= verticalMargin && pos.y <= verticalMargin + width)  || (pos.y <= (1.0-verticalMargin) && pos.y >= (1.0-verticalMargin-width))){
+		return true;
 	}
-	return ( pos.y <= 0.5+0.5*armWidth && pos.y >= 0.5-0.5*armWidth );
+
+	
+	if (pos.y >= pos.x){
+		return ((pos.y - pos.x <= width));
+	}
+	else {
+		return ((pos.x - pos.y <= width) );
+	}
+	
 }
 #endglsl
