@@ -68,6 +68,22 @@ unsigned int myVBO[NumObjects];  // a Vertex Buffer Object holds an array of dat
 unsigned int myVAO[NumObjects];  // a Vertex Array Object - holds info about an array of vertex data;
 unsigned int myEBO[NumObjects];  // a Element Array Buffer Object - holds an array of elements (vertex indices)
 
+
+
+double ball1_pos[3];
+double ball2_pos[3];
+
+
+double len_1 = 1.5;
+double len_2 = 1.5;
+
+double mass1;
+double mass2;
+
+double GRAVITY = 9.81;
+
+
+
 // ********************************************
 // This sets up for texture maps. It is called only once
 // ********************************************
@@ -179,6 +195,8 @@ void MySetupSurfaces() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, myEBO[iFloor]);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(floorElts), floorElts, GL_STATIC_DRAW);
 
+
+    /*
     // For the circular surface:
     // Allocate the needed VAO, VBO< EBO
     // The normal vectors is specified separately for each vertex. (It is not a generic attribute.)
@@ -200,6 +218,7 @@ void MySetupSurfaces() {
 
     SamsRemeshCircularSurf();
 
+    */
     // FOR THE BACK WALL: ADD YOUR OWN CODE!! 
     // IT WILL BE SIMILAR TO THE FLOOR ABOVE.
     // YOU DO NOT NEED TO REMESH THE BACK WALL - ONE RECTANGLE (TWO TRIANGLES) IS ENOUGH
@@ -272,8 +291,9 @@ void MyRenderGeometries() {
 
     // **************
     // Render the circular surface
-    selectShaderProgram(shaderProgramBitmap);
-    SamsRenderCircularSurf();
+
+    //selectShaderProgram(shaderProgramBitmap);
+    //SamsRenderCircularSurf();
 
     // ************ 
     // Render the back wall
@@ -320,6 +340,24 @@ void MyRenderGeometries() {
     texSphere.Render();              
     glUniform1i(applyTextureLocation, false);// Render the sphere
 
+
+    // Render ball 1
+
+    matDemo = viewMatrix;
+    matDemo.Mult_glTranslate(ball1_pos[0], ball1_pos[1], ball1_pos[2]);
+
+    // Render spring 1
+
+    matDemo = viewMatrix;
+    matDemo.Mult_glTranslate(0.0, 3.0, 0.0);
+    matDemo.Mult_glScale(0.15, 1.5, 0.15);
+    matDemo.DumpByColumns(matEntries);
+    glUniformMatrix4fv(modelviewMatLocation, 1, false, matEntries);
+    texCylinder.RenderBase();
+    texCylinder.RenderSide();
+    texCylinder.RenderTop();
+
+    
 
     // Render a cylinder 
     // YOU MAY LEAVE THE TEXTURE MAP ON THE SIDE OF THE CYLINDER
