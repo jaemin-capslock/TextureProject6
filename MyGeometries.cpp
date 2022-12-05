@@ -45,7 +45,7 @@ const char* TextureFiles[NumTextures] = {
     "vangogh.bmp",
     "catto2.bmp",
     "soccerball.bmp",
-    "popcornfloor.bmp",
+    "rug.bmp",
     "newton.bmp"
 };
 
@@ -85,7 +85,7 @@ double mass2;
 
 double GRAVITY = 9.81;
 
-const int num_frames = (int) (30.0 / 0.01);
+const int num_frames = (int) (35.0 / 0.01);
 
 double pen_vals[num_frames * 4];
 
@@ -232,10 +232,10 @@ void MySetupSurfaces() {
 
 
     float wallVerts[]{
-        -5.0f, 0.0f, -5.0f,      0.0f, 0.0f, 1.0f,          0.0f, 1.0f,         // Bottom left
-         5.0f, 0.0f, -5.0f,      0.0f, 0.0f, 1.0f,          1.0f, 1.0f,         // Bottom right
-         5.0f, 5.0f, -5.0f,      0.0f, 0.0f, 1.0f,          1.0f, 0.0f,         // Top right
-        -5.0f, 5.0f, -5.0f,      0.0f, 0.0f, 1.0f,          0.0f, 0.0f,         // Top left
+        -5.0f, 0.0f, -5.0f,      0.0f, 0.0f, 1.0f,          0.0f, 0.0f,         // Bottom left
+         5.0f, 0.0f, -5.0f,      0.0f, 0.0f, 1.0f,          1.0f, 0.0f,         // Bottom right
+         5.0f, 5.0f, -5.0f,      0.0f, 0.0f, 1.0f,          1.0f, 1.0f,         // Top right
+        -5.0f, 5.0f, -5.0f,      0.0f, 0.0f, 1.0f,          0.0f, 1.0f,         // Top left
 
     };
     unsigned int wallElts[] = { 0, 1, 3, 2 };
@@ -313,7 +313,6 @@ void mySetupPendulum() {
 
         pen_vals[4 * i] = (float) mp.theta1();
 
-        
         pen_vals[4 * i + 1] = (float) mp.r1();
 
         pen_vals[4 * i + 2] = (float) mp.theta2();
@@ -352,8 +351,8 @@ void myRenderPendulum() {
     matDemo = viewMatrix;
     
     
-    matDemo.Mult_glTranslate( x_1, (y_1)+4.0, 0);
-    matDemo.Mult_glScale(0.2, 0.2, 0.2);
+    matDemo.Mult_glTranslate( x_1, (y_1)+4.0, 0.0);
+    matDemo.Mult_glScale(0.2);
     //matDemo.Mult_glScale(0.2, 0.2, 0.2);
     
     matDemo.DumpByColumns(matEntries);
@@ -387,9 +386,11 @@ void myRenderPendulum() {
     LinearMapR4 matDemo2 = viewMatrix;
    
     
-    
+    //matDemo2.Mult_glScale(0.05, r1 / 2, 0.05);
+    //matDemo2.Mult_glRotate(theta1, 0.0, 0.0, 1.0);
     matDemo2.Mult_glTranslate(x_1 / 0.5, 2.0 + (4.0 + y_1 / 0.5), 0.0);
     matDemo2.Mult_glRotate(theta1, 0.0, 0.0, 1.0);
+
     
     matDemo2.Mult_glScale(0.05, r1/2, 0.05);
     matDemo2.DumpByColumns(matEntries);
@@ -404,7 +405,7 @@ void myRenderPendulum() {
 
     
     matDemo3.Mult_glTranslate( x_2, (y_2)+4.0, 0);
-    matDemo3.Mult_glScale(0.2, 0.2, 0.2);
+    matDemo3.Mult_glScale(0.2);
     
     matDemo3.DumpByColumns(matEntries);
     glUniformMatrix4fv(modelviewMatLocation, 1, false, matEntries);
@@ -435,7 +436,7 @@ void MyRenderGeometries() {
     // ******
     // Render the Floor - using a procedural texture map
     // ******
-    selectShaderProgram(shaderProgramProc);
+    selectShaderProgram(shaderProgramBitmap);
     glBindVertexArray(myVAO[iFloor]);                // Select the floor VAO (Vertex Array Object)
     materialUnderTextureDark.LoadIntoShaders();         // Use the bright underlying color
     viewMatrix.DumpByColumns(matEntries);           // Apply the model view matrix
