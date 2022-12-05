@@ -12,7 +12,10 @@
 
 //
 // Function Prototypes
+// 
+// 
 //
+
 void MySetupSurfaces();                // Called once, before rendering begins.
 void SetupForTextures();               // Loads textures, sets Phong material
 void MyRemeshGeometries();             // Called when mesh changes, must update resolutions.

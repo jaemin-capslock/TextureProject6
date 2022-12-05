@@ -74,7 +74,7 @@ int meshRes=4;             // Resolution of the meshes (slices, stacks, and ring
 // YOUR CODE WILL NOT USE THIS UNLESS YOU ADD ANIMATION  
 double animateIncrement = 0.01;   // Make bigger to speed up animation, smaller to slow it down.
 double currentTime = 0.0;         // Current "time" for the animation.
-bool spinMode = true;       // Controls whether running or paused.
+extern bool spinMode = true;       // Controls whether running or paused.
 double currentDelta = 0.0;        // Current state of the animation (YOUR CODE MAY NOT WANT TO USE THIS.)
 
 // ************************

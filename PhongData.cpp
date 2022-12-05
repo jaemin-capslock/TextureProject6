@@ -2,7 +2,7 @@
 // PhongData.cpp
 // ************************
 
-
+#include "MyGeometries.h"
 #include "PhongData.h"
 #include "EduPhong.h"
 #include "LinearR4.h"
@@ -30,9 +30,11 @@ phMaterial myEmissiveMaterials;   // Use for small spheres showing the location 
 // Suggested positions for the lights. It is OK to change them if it fits in your scene better.
 // Especially, you may need to move them higher or lower!
 VectorR3 myLightPositions[3] = {
-    VectorR3(-5.0, 7.0, 0.0),
-    VectorR3(0.0, 7.0, 0.0),
-    VectorR3(5.0, 7.0, 0.0),
+    VectorR3(-4.7, 4.2, 4.0),
+    
+    VectorR3(-3.25, 3.9, -4.7),
+    VectorR3(3.5, 5.0, 1.5),
+    
 };
 
 // Global Lighting parameters
@@ -41,7 +43,7 @@ void MySetupGlobalLight()
     globalPhongData.NumLights = 4;     // Should be enough lights for most 155A programming projects
 
     // FEEL FREE TO CHANGE THIS VALUE IF IT HELPS YOUR SCENE LOOK BETTER (E.G. IN LOW LIGHT)
-    globalPhongData.GlobalAmbientColor.Set(0.1, 0.1, 0.1);
+    globalPhongData.GlobalAmbientColor.Set(0.12, 0.12, 0.12);
     globalPhongData.LoadIntoShaders();
 }
 
@@ -52,28 +54,28 @@ void MySetupLights()
     myLightSphere.InitializeAttribLocations(vertPos_loc); 
     
     // First light (light #0).
-    myLights[0].AmbientColor.Set(0.2, 0.2, 0.2);    // Gray color
-    myLights[0].DiffuseColor.Set(0.8,0.8,0.8);      // Very light gray
-    myLights[0].SpecularColor.Set(0.9, 0.9, 0.9);   // Very light gray
+    myLights[0].AmbientColor.Set(0.25, 0.25, 0.25);    // Gray color
+    myLights[0].DiffuseColor.Set(0.7,0.7,0.7);      // Very light gray
+    myLights[0].SpecularColor.Set(0.7, 0.7, 0.7);   // Very light gray
     myLights[0].IsEnabled = true;                   // BE SURE TO ENABLE YOUR LIGHTS
 
     // Second light (light #1)
-    myLights[1].AmbientColor.Set(0.4, 0.4, 0.13);    // Yellow color
-    myLights[1].DiffuseColor.Set(0.7, 0.7, 0.2);    // Yellow
-    myLights[1].SpecularColor.Set(0.7, 0.7, 0.0);   // White
+    myLights[1].AmbientColor.Set(0.25, 0.14, 0.1);    // Yellow color
+    myLights[1].DiffuseColor.Set(0.75, 0.42, 0.17);    // Yellow
+    myLights[1].SpecularColor.Set(0.8, 0.45, 0.2);   // White
     myLights[1].IsEnabled = true;                     // BE SURE TO ENABLE YOUR LIGHTS
 
     // Third light (light #2)
-    myLights[2].AmbientColor.Set(0.0, 0.4, 0.4);    // Yellow color
-    myLights[2].DiffuseColor.Set(0.3, 0.5, 0.5);      // Very light gray
-    myLights[2].SpecularColor.Set(0.6, 0.8, 0.8);   // Very light gray
+    myLights[2].AmbientColor.Set(0.25, 0.24, 0.18);    // Yellow color
+    myLights[2].DiffuseColor.Set(0.75 * 0.8, 0.72 * 0.8, 0.54 * 0.8);      // Very light gray
+    myLights[2].SpecularColor.Set(0.8, 0.8, 0.6);   // Very light gray
     myLights[2].IsEnabled = true;                     // BE SURE TO ENABLE YOUR LIGHTS
 
     myLights[3].DiffuseColor.Set(0.6, 0.6, 0.6);      // Very light gray
     myLights[3].SpotCosCutoff = 0.95f;
     myLights[3].IsSpotLight = true;
     myLights[3].SpotExponent = 1.0f;
-    myLights[3].IsEnabled = true;                   // BE SURE TO ENABLE YOUR LIGHTS
+    myLights[3].IsEnabled = false;                   // BE SURE TO ENABLE YOUR LIGHTS
 
 }
 
