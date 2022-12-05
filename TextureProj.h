@@ -60,6 +60,9 @@ bool check_for_opengl_errors();
 void mySetupGeometries();
 void mySetViewMatrix();  
 
+void mySetupPendulum();
+void myRenderPendulum();
+
 void myRenderScene();
 
 void my_setup_SceneData();

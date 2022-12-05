@@ -194,6 +194,7 @@ void my_setup_SceneData() {
     timeLoc = glGetUniformLocation(shaderProgramProc, "currentTime");
 
     mySetupGeometries();
+    mySetupPendulum();
     check_for_opengl_errors();
     SetupForTextures();   // The shader programs should be compiled and linked before setting up textures.
     check_for_opengl_errors();

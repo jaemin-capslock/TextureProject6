@@ -5,7 +5,7 @@
 */
 struct Pendulum {
 
-	Pendulum(double t, double o, double l, double m) : theta(t), omega(o), len(l), mass(m) 
+	Pendulum(double t, double o, double v, double l, double m, double r, double k) : theta(t), omega(o), v(v), len(l), mass(m), r(r), k(k)
 	{}
 	double theta; // angle
 	double omega; // angular velocity 
@@ -23,9 +23,9 @@ struct Pendulum {
 class MyPendulum {
 public:
 	MyPendulum(const Pendulum& upper, const Pendulum& lower,
-		double dt = 0.005, double g = 9.81);
+		double dt = 0.01, double g = 9.81);
 
-	void update(double newTime);
+	void update();
 	double theta1() {
 		return m_theta1;
 	}
