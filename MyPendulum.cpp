@@ -27,7 +27,6 @@ MyPendulum::MyPendulum(const Pendulum& upper, const Pendulum& lower, double dt, 
 
 
 void MyPendulum::update() {
-	//assert(newTime >= m_time);
 
 	
 		const double yin[NUM_EQNS] = { m_theta1, m_omega1, m_v1, m_r1, m_theta2, m_omega2, m_v2, m_r2 };
@@ -48,10 +47,13 @@ void MyPendulum::update() {
 
 void MyPendulum::derivs(const double* yin, double* dydx) {
 
+
+
 	double delta = yin[THETA_1] - yin[THETA_2];
+
+
 	dydx[THETA_1] = yin[OMEGA_1];
 	
-
 	dydx[OMEGA_1] = (m_k2 * (m_l2 - yin[R_2]) * sin(delta) - (m_m1 * m_g * sin(yin[THETA_1])) - (2.0 * m_m1 * yin[V_1] * yin[OMEGA_1])) / (m_m1 * yin[R_1]);
 
 	dydx[R_1] = yin[V_1];
@@ -73,7 +75,7 @@ void MyPendulum::derivs(const double* yin, double* dydx) {
 
 void MyPendulum::solveODEs(const double* yin, double* yout) {
 
-	// RK4 Method.
+	// Runge-Kutta 4 Method.
 
 	double dydx[NUM_EQNS], dydxt[NUM_EQNS], yt[NUM_EQNS];
 	double k1[NUM_EQNS], k2[NUM_EQNS], k3[NUM_EQNS], k4[NUM_EQNS];
@@ -102,6 +104,7 @@ void MyPendulum::solveODEs(const double* yin, double* yout) {
 
 	for (int i = 0; i < NUM_EQNS; ++i) {
 		k4[i] = m_dt * dydxt[i];
+		// simpson's rule
 		yout[i] = yin[i] + (k1[i] / 6.0) + (k2[i] / 3.0) + (k3[i] / 3.0) + (k4[i] / 6.0);
 	}
 }

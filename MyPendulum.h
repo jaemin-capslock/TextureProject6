@@ -1,14 +1,15 @@
 #pragma once
 
 /*
-* Code based in https://freddie.witherden.org/tools/doublependulum/report.pdf, but with few alterations after on.
+* Code based on https://freddie.witherden.org/tools/doublependulum/report.pdf, but with few alterations.
 */
 struct Pendulum {
+	// Warning: using too small values for mass or l or r will likely introduce roundoff errors.
 
 	Pendulum(double t, double o, double v, double l, double m, double r, double k) : theta(t), omega(o), v(v), len(l), mass(m), r(r), k(k)
 	{}
-	double theta; // angle
-	double omega; // angular velocity 
+	double theta; // angle in radians.
+	double omega; // angular velocity - should be zero.
 	double v; // dot of r
 	double r; // length of spring
 	double len; // length of the pendulum
@@ -23,7 +24,7 @@ struct Pendulum {
 class MyPendulum {
 public:
 	MyPendulum(const Pendulum& upper, const Pendulum& lower,
-		double dt = 0.01, double g = 9.81);
+		double dt = 0.016, double g = 9.81);
 
 	void update();
 	double theta1() {
@@ -101,9 +102,11 @@ protected:
 		R_2,
 		NUM_EQNS
 	};
-
+	// Get 8 first-order equations. 
 	void derivs(const double* yin, double* dydx);
 
+
+	// Use RK4 method to solve systems of equations.
 	void solveODEs(const double* yin, double* yout);
 
 	// Angle from the y axis, radians.

@@ -10,6 +10,8 @@
 #include "GlShaderMgr.h"
 #include "TextureProj.h"
 
+
+
 extern phGlobal globalPhongData;
 
 // It is suggested to use
@@ -30,10 +32,10 @@ phMaterial myEmissiveMaterials;   // Use for small spheres showing the location 
 // Suggested positions for the lights. It is OK to change them if it fits in your scene better.
 // Especially, you may need to move them higher or lower!
 VectorR3 myLightPositions[3] = {
-    VectorR3(-4.7, 4.2, 4.0),
+    VectorR3(-4.7, 4.7, 4.0),
     
     VectorR3(-3.25, 3.9, -4.7),
-    VectorR3(3.5, 5.0, 1.5),
+    VectorR3(3.5, 4.7, -4.7),
     
 };
 
@@ -55,8 +57,8 @@ void MySetupLights()
     
     // First light (light #0).
     myLights[0].AmbientColor.Set(0.25, 0.25, 0.25);    // Gray color
-    myLights[0].DiffuseColor.Set(0.7,0.7,0.7);      // Very light gray
-    myLights[0].SpecularColor.Set(0.7, 0.7, 0.7);   // Very light gray
+    myLights[0].DiffuseColor.Set(0.65,0.65,0.65);      // Very light gray
+    myLights[0].SpecularColor.Set(0.65, 0.65, 0.65);   // Very light gray
     myLights[0].IsEnabled = true;                   // BE SURE TO ENABLE YOUR LIGHTS
 
     // Second light (light #1)
